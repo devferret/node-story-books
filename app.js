@@ -4,8 +4,6 @@ const passport = require('passport')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 
-const app = express()
-
 // Load user model
 require('./models/User')
 
@@ -13,10 +11,13 @@ require('./models/User')
 require('./config/passport')(passport)
 
 // Load routes
+const index = require('./routes/index')
 const auth = require('./routes/auth')
 
 // Load keys
 const keys = require('./config/keys')
+
+const app = express()
 
 // Map global promise
 mongoose.Promise = global.Promise
@@ -26,6 +27,9 @@ mongoose
   .connect(keys.mongoURI, { useMongoClient: true })
   .then(() => console.log('...MongoDB connected'))
   .catch(err => console.log(err))
+
+app.set('views', './views')
+app.set('view engine', 'pug')
 
 app.use(cookieParser())
 app.use(
@@ -47,7 +51,7 @@ app.use((req, res, next) => {
 })
 
 // Config routes
-app.get('/', (req, res) => res.send('Work!'))
+app.use('/', index)
 app.use('/auth', auth)
 
 // Config port
