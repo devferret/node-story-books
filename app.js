@@ -6,4 +6,4 @@ const app = express()
 app.get('/', (req, res) => res.send('Work!'))
 
 const PORT = process.env.PORT || 5555
-app.listen(POR, () => console.log(`App listening on ${PORT}...`))
+app.listen(PORT, () => console.log(`App listening on ${PORT}...`))
