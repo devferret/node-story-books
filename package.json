@@ -1,0 +1,20 @@
+{
+  "name": "storybooks",
+  "version": "1.0.0",
+  "description": "Back-end app to sharing your story to everyone",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "mongodb"
+  ],
+  "author": "w2u2u",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mongoose": "^4.13.6"
+  }
+}
