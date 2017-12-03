@@ -1,11 +1,15 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const passport = require('passport')
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
+
+const app = express()
 
 // Load user model
 require('./models/User')
 
-// Passport config
+// Load passport config
 require('./config/passport')(passport)
 
 // Load routes
@@ -23,8 +27,26 @@ mongoose
   .then(() => console.log('...MongoDB connected'))
   .catch(err => console.log(err))
 
+app.use(cookieParser())
+app.use(
+  session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false
+  })
+)
+
+// Passport middleware
+app.use(passport.initialize())
+app.use(passport.session())
+
+// Declare local variable
+app.use((req, res, next) => {
+  res.locals.user = req.user || null
+  next()
+})
+
 // Config routes
-const app = express()
 app.get('/', (req, res) => res.send('Work!'))
 app.use('/auth', auth)
 

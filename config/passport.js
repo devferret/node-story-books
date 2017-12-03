@@ -27,7 +27,6 @@ module.exports = passport => {
           image: image
         }
 
-        console.log(newUser)
         User.findOne({
           socialID: profile.id
         }).then(user => {
@@ -36,5 +35,10 @@ module.exports = passport => {
         })
       }
     )
+  )
+
+  passport.serializeUser((user, done) => done(null, user.id))
+  passport.deserializeUser((userId, done) =>
+    User.findById(userId).then(user => done(null, user))
   )
 }
