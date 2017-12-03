@@ -2,6 +2,9 @@ const express = require('express')
 const mongoose = require('mongoose')
 const passport = require('passport')
 
+// Load user model
+require('./models/User')
+
 // Passport config
 require('./config/passport')(passport)
 
@@ -20,9 +23,11 @@ mongoose
   .then(() => console.log('...MongoDB connected'))
   .catch(err => console.log(err))
 
+// Config routes
 const app = express()
 app.get('/', (req, res) => res.send('Work!'))
 app.use('/auth', auth)
 
+// Config port
 const PORT = process.env.PORT || 5555
 app.listen(PORT, () => console.log(`...App listening on ${PORT}`))
