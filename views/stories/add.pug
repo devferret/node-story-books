@@ -7,7 +7,7 @@ block body
   .container
     h1 Tell your Story
     .row
-     form.col.s12
+     form.col.s12(action="/stories" method="POST")
       .input-field
         input#title(name="title" type="text" required)
         label(for="title") Title

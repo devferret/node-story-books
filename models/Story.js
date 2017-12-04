@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
-const StorySchema = {
+const StorySchema = new Schema({
   title: {
     type: String,
     required: true
@@ -43,6 +44,6 @@ const StorySchema = {
     type: Date,
     default: Date.now()
   }
-}
+})
 
 module.exports = mongoose.model('story', StorySchema, 'stories')

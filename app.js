@@ -4,9 +4,11 @@ const passport = require('passport')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const path = require('path')
+const bodyParser = require('body-parser')
 
-// Load user model
+// Load models
 require('./models/User')
+require('./models/Story')
 
 // Load passport config
 require('./config/passport')(passport)
@@ -29,6 +31,9 @@ mongoose
   .connect(keys.mongoURI, { useMongoClient: true })
   .then(() => console.log('...MongoDB connected'))
   .catch(err => console.log(err))
+
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
 app.set('views', './views')
 app.set('view engine', 'pug')
