@@ -1,8 +1,8 @@
 nav.pink.lighten-2
   .container
     nav-warpper
-      a.brand-logo.center(href="/stories") Storybooks
-      a.button-collapse.show-on-large(href="#", date-activates="side-menu")
+      .brand-logo.center Storybooks
+      a.button-collapse.show-on-large(href="#" data-activates="main-menu")
         i.fa.fa-bars
       ul.left.hide-on-med-and-down
         li
@@ -14,12 +14,34 @@ nav.pink.lighten-2
           li
             a(href="/dashboard" )
               img.middle.circle(src=`${user.image}` width="40" height="40")
-          li
-            a(href="/auth/logout")
-              i.fa.fa-sign-out
-              | Sign Out
         else
           li
             a(href="/stories")
               i.fa.fa-book
               | Public Stories
+      ul#main-menu.side-nav
+        if !user
+          li
+            a.btn.red.darken-1.waves-effect.waves-light(href="/auth/google")
+              span
+                i.fa.fa-google-plus.left
+              span Login with google
+        li
+          a(href="/stories")
+            i.fa.fa-book
+            | Public Stories
+        if user
+          .divider
+          li
+            a(href="/dashboard")
+              i.fa.fa-cog
+              | Dashboard
+          li
+            a(href=`/stories/${user.id}`)
+              i.fa.fa-user
+              | My Stories
+          li
+            a(href="/auth/logout")
+              i.fa.fa-sign-out
+              | Log out
+            
