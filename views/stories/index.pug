@@ -17,9 +17,9 @@ block body
                   a.btn-floating.halfway-fab.waves-effect.waves-light.amber.darken-3
                     i.fa.fa-pencil
                 .card-content.center-align
-                  h5= story.title
+                  h5.story-title= story.title
                   br
-                  p= truncate(stripTags(story.body), 100)
+                  p.story-body= truncate(stripTags(story.body), 140)
                 .card-action.center-align
                   a.marginless(href=`/stories/show/${story.id}`) Read more
 

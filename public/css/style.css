@@ -35,3 +35,11 @@ nav .fa {
   display: inline-block;
   vertical-align: middle;
 }
+
+.story-title {
+  height: 80px;
+}
+
+.story-body {
+  height: 100px;
+}
