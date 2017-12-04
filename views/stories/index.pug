@@ -5,11 +5,11 @@ block title
 
 block body
   .container
-    .section(style="padding-top: 50px;")
+    .section
       if stories
         .row
           each story in stories
-            .col.s12.m4
+            .col.s12.l6.xl4(style="padding-top: 50px;")
               .card
                 .card-image
                   a.btn-floating.btn-large.halfway-fab.left.waves-effect.waves-light
@@ -18,8 +18,8 @@ block body
                     i.fa.fa-pencil
                 .card-content.center-align
                   h5= story.title
-                  p= story.body
                   br
+                  p= truncate(stripTags(story.body), 30)
                 .card-action.center-align
                   a.marginless(href="#") Read more
 

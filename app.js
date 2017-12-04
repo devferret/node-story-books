@@ -21,6 +21,9 @@ const stories = require('./routes/stories')
 // Load keys
 const keys = require('./config/keys')
 
+// Load Filter
+const { truncate, stripTags } = require('./helper/filters')
+
 const app = express()
 
 // Map global promise
@@ -54,6 +57,8 @@ app.use(passport.session())
 // Declare local variable
 app.use((req, res, next) => {
   res.locals.user = req.user || null
+  res.locals.truncate = truncate
+  res.locals.stripTags = stripTags
   next()
 })
 
