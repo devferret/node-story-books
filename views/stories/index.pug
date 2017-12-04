@@ -5,4 +5,23 @@ block title
 
 block body
   .container
-    h1 Stories
+    .section(style="padding-top: 50px;")
+      if stories
+        .row
+          each story in stories
+            .col.s12.m4
+              .card
+                .card-image
+                  a.btn-floating.btn-large.halfway-fab.left.waves-effect.waves-light
+                      img(src=`${story.owner.image}`)
+                  a.btn-floating.halfway-fab.waves-effect.waves-light.amber.darken-3
+                    i.fa.fa-pencil
+                .card-content.center-align
+                  h5= story.title
+                  p= story.body
+                  br
+                .card-action.center-align
+                  a.marginless(href="#") Read more
+
+      else
+        h2 No stories

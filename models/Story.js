@@ -26,8 +26,7 @@ const StorySchema = new Schema({
       },
       commentUser: {
         type: Schema.Types.ObjectId,
-        ref: 'user',
-        required: true
+        ref: 'user'
       },
       createdDate: {
         type: Date,
@@ -37,8 +36,7 @@ const StorySchema = new Schema({
   ],
   owner: {
     type: Schema.Types.ObjectId,
-    ref: 'user',
-    required: true
+    ref: 'user'
   },
   createdDate: {
     type: Date,

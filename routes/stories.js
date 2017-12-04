@@ -4,8 +4,15 @@ const router = express.Router()
 const { ensureAuthenticated } = require('../helper/auth')
 
 const Story = mongoose.model('story')
+const User = mongoose.model('story')
 
-router.get('/', (req, res) => res.render('stories/index'))
+router.get('/', (req, res) => {
+  Story.find({ status: 'public' })
+    .populate('owner')
+    .then(stories => {
+      res.render('stories/index', { stories: stories })
+    })
+})
 
 router.get('/add', ensureAuthenticated, (req, res) => res.render('stories/add'))
 

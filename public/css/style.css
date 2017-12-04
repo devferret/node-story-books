@@ -8,17 +8,17 @@ main {
   flex: 1 0 auto;
 }
 
-.fa {
+nav .fa {
   display: inline !important;
   margin-right: 6px;
 }
 
 .marginless {
-  margin: 0;
+  margin: 0 !important;
 }
 
 .paddingless {
-  padding: 0;
+  padding: 0 !important;
 }
 
 .circle {
@@ -26,5 +26,12 @@ main {
 }
 
 .middle {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.card-action p {
+  display: inline;
+  display: inline-block;
   vertical-align: middle;
 }
