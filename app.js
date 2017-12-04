@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const passport = require('passport')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
+const path = require('path')
 
 // Load user model
 require('./models/User')
@@ -50,6 +51,9 @@ app.use((req, res, next) => {
   res.locals.user = req.user || null
   next()
 })
+
+// Set static folder
+app.use(express.static(path.join(__dirname, 'public')))
 
 // Config routes
 app.use('/', index)

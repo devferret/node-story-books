@@ -21,16 +21,20 @@ nav.pink.lighten-2
           a(href="/")
             i.fa.fa-home
             | Home
+        li
+          a(href="/stories")
+            i.fa.fa-book
+            | Public Stories
       ul.right.hide-on-med-and-down
         if user
           li
+            a(href="/stories/add")
+              i.fa.fa-plus
+              | Add New Story
+          li
             a.dropdown-button(href="/dashboard" data-activates="dropdown" data-constrainwidth="false")
               img.middle.circle(src=`${user.image}` width="40" height="40")
-        else
-          li
-            a(href="/stories")
-              i.fa.fa-book
-              | Public Stories
+          
       ul#main-menu.side-nav
         if !user
           li
@@ -38,6 +42,10 @@ nav.pink.lighten-2
               span
                 i.fa.fa-google-plus.left
               span Login with google
+        li
+          a(href="/")
+            i.fa.fa-home
+            | Home
         li
           a(href="/stories")
             i.fa.fa-book
