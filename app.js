@@ -22,7 +22,7 @@ const stories = require('./routes/stories')
 const keys = require('./config/keys')
 
 // Load Filter
-const { truncate, stripTags } = require('./helper/filters')
+const { truncate, stripTags, formatDate } = require('./helper/filters')
 
 const app = express()
 
@@ -59,6 +59,7 @@ app.use((req, res, next) => {
   res.locals.user = req.user || null
   res.locals.truncate = truncate
   res.locals.stripTags = stripTags
+  res.locals.formatDate = formatDate
   next()
 })
 

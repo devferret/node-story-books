@@ -14,6 +14,17 @@ router.get('/', (req, res) => {
     })
 })
 
+router.get('/show/:id', (req, res) => {
+  Story.findOne({ _id: req.params.id })
+    .populate('owner')
+    .then(story => {
+      Story.find({ owner: story.owner.id }).then(stories => {
+        res.render('stories/story', { story: story, ownerStories: stories })
+      })
+    })
+    .catch(err => console.log(err))
+})
+
 router.get('/add', ensureAuthenticated, (req, res) => res.render('stories/add'))
 
 router.get('/edit', ensureAuthenticated, (req, res) =>

@@ -5,4 +5,21 @@ block title
 
 block body
   .container
-    h1 Story
+    .row(style="padding-top: 30px;")
+      .col.s12.m12.l8.push-l4
+        .card.z-depth-3
+          .card-content
+            h5= formatDate(story.dateCreated, 'MMMM DD, YYYY')
+            h4= story.title
+            h6= stripTags(story.body)
+      .col.s12.m12.l4.pull-l8
+        .row
+          .col.s12.m6.l12
+            .card.center-align.z-depth-3
+              .card-content
+                img.circle(src=`${story.owner.image}` style="width: 50%")
+                h5= story.owner.firstName
+          .col.s12.m6.l12
+            .collection.z-depth-3
+              each oS in ownerStories
+                a.collection-item(href=`/stories/show/${oS.id }`)= oS.title

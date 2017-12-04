@@ -10,7 +10,7 @@ block body
         .row
           each story in stories
             .col.s12.l6.xl4(style="padding-top: 50px;")
-              .card
+              .card.z-depth-3
                 .card-image
                   a.btn-floating.btn-large.halfway-fab.left.waves-effect.waves-light
                       img(src=`${story.owner.image}`)
@@ -19,9 +19,9 @@ block body
                 .card-content.center-align
                   h5= story.title
                   br
-                  p= truncate(stripTags(story.body), 30)
+                  p= truncate(stripTags(story.body), 100)
                 .card-action.center-align
-                  a.marginless(href="#") Read more
+                  a.marginless(href=`/stories/show/${story.id}`) Read more
 
       else
         h2 No stories
