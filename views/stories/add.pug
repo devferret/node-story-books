@@ -9,7 +9,7 @@ block body
     .row
      form.col.s12(action="/stories" method="POST")
       .input-field
-        input#title(name="title" type="text" required)
+        input#title(name="title" type="text" maxlength="70" required)
         label(for="title") Title
 
       .input-field
