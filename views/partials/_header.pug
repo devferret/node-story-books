@@ -1,3 +1,14 @@
+if user
+  ul#dropdown.dropdown-content
+    li
+      a(href=`/stories/${user.id}`)
+        i.fa.fa-user
+        | My Stories
+    li
+      a(href="/auth/logout")
+        i.fa.fa-sign-out
+        | Log out
+            
 nav.pink.lighten-2
   .container
     nav-warpper
@@ -12,7 +23,7 @@ nav.pink.lighten-2
       ul.right.hide-on-med-and-down
         if user
           li
-            a(href="/dashboard" )
+            a.dropdown-button(href="/dashboard" data-activates="dropdown" data-constrainwidth="false")
               img.middle.circle(src=`${user.image}` width="40" height="40")
         else
           li
