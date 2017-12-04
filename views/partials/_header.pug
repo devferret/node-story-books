@@ -1,5 +1,9 @@
 if user
   ul#dropdown.dropdown-content
+    li.show-on-med-and-down
+      a(href=`/stories/add`)
+        i.fa.fa-plus
+        | Add New Story
     li
       a(href=`/stories/${user.id}`)
         i.fa.fa-user
@@ -25,9 +29,9 @@ nav.pink.lighten-2
           a(href="/stories")
             i.fa.fa-book
             | Public Stories
-      ul.right.hide-on-med-and-down
+      ul.right
         if user
-          li
+          li.hide-on-med-and-down
             a(href="/stories/add")
               i.fa.fa-plus
               | Add New Story

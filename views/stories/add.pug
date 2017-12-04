@@ -5,4 +5,26 @@ block title
 
 block body
   .container
-    h1 Add
+    h1 Tell your Story
+    .row
+     form.col.s12
+      .input-field
+        input#title(name="title" type="text" required)
+        label(for="title") Title
+
+      .input-field
+        select(name="status")
+          option(value="public" selected) Public
+          option(value="private") Private
+          option(value="unpublished") Unpublished
+        label Status
+
+      input.filled-in(name="allowComments" type="checkbox" id="isAllow" checked)
+      label(for="isAllow") Allow Comments ?
+      
+      row
+        .input-field
+          textarea(name="body" required)
+
+      p
+        input.btn(type="submit" value="Save")
