@@ -1,5 +1,6 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy
 const FacebookStrategy = require('passport-facebook').Strategy
+const TwitterStrategy = require('passport-twitter').Strategy
 const mongoose = require('mongoose')
 const keys = require('./keys')
 
@@ -26,10 +27,30 @@ module.exports = passport => {
         clientID: '150997585660257',
         clientSecret: '921fdfed69924f835f29ac1b0347943a',
         callbackURL: '/auth/facebook/callback',
-        profileFields: ['id', 'displayName', 'photos', 'email']
+        profileFields: [
+          'id',
+          'picture.type(large)',
+          'emails',
+          'first_name',
+          'last_name'
+        ]
       },
       (accessToken, refreshToken, profile, done) => {
         createOrFindUser(profile, 'facebook', done)
+      }
+    )
+  )
+
+  passport.use(
+    new TwitterStrategy(
+      {
+        consumerKey: 'o1n6o1qmXmmD5STfPwbdkv2qJ',
+        consumerSecret: 'jeJEhArhuQO56IdKVzDmY8S4CLQRvV75hr0XZbifRqj5szsHKa',
+        callbackURL: '/auth/twitter/callback',
+        includeEmail: true
+      },
+      (accessToken, refreshToken, profile, done) => {
+        createOrFindUser(profile, 'twitter', done)
       }
     )
   )
@@ -41,20 +62,34 @@ module.exports = passport => {
 }
 
 const createOrFindUser = (profile, social, done) => {
-  const image =
-    social == 'google'
-      ? profile.photos[0].value.substring(
-          0,
-          profile.photos[0].value.indexOf('?')
-        )
-      : profile.photos[0].value
+  let image, email
+
+  switch (social) {
+    case 'google':
+      image = profile.photos[0].value.substring(
+        0,
+        profile.photos[0].value.indexOf('?')
+      )
+      break
+
+    case 'facebook':
+      image = profile.photos[0].value
+      break
+
+    case 'twitter':
+      image = profile.photos[0].value.replace('_normal', '')
+      break
+
+    default:
+      image = ''
+      break
+  }
 
   const newUser = {
     socialID: profile.id,
-    firstName: profile.name.givenName || profile.displayName,
-    lastName: profile.name.familyName || '',
-    email:
-      social == 'google' ? profile.emails[0].value : 'No valid email address',
+    firstName: profile.name ? profile.name.givenName : profile.displayName,
+    lastName: profile.name ? profile.name.familyName : '',
+    email: profile.emails[0].value,
     image: image
   }
 

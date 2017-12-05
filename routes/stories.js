@@ -9,6 +9,7 @@ const User = mongoose.model('story')
 router.get('/', (req, res) => {
   Story.find({ status: 'public' })
     .populate('owner')
+    .sort({ createdDate: -1 })
     .then(stories => {
       res.render('stories/index', { stories: stories })
     })
