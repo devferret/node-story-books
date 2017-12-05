@@ -12,10 +12,10 @@ block body
             .col.s12.l6.xl4(style="padding-top: 50px;")
               .card.z-depth-3
                 .card-image
-                  a.btn-floating.btn-large.halfway-fab.left.waves-effect.waves-light
-                      img(src=`${story.owner.image}`)
+                  a.btn-floating.btn-large.halfway-fab.left.waves-effect.waves-light(href=`/stories/${story.owner.id}`)
+                    img(src=`${story.owner.image}`)
                   if user && (story.owner.id == user.id)
-                    a.btn-floating.halfway-fab.waves-effect.waves-light.amber.darken-3
+                    a.btn-floating.halfway-fab.waves-effect.waves-light.amber.darken-3(href=`/stories/edit/${story.id}`)
                       i.fa.fa-pencil
                 .card-content.center-align
                   h5.story-title= story.title

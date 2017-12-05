@@ -15,7 +15,8 @@ block body
                 h4= story.title
                 h5= stripTags(story.body)
               .card-action.valign-wrapper
-                img.circle(src=`${story.owner.image}` style="width: 50px;")
+                a(href=`/stories/${story.owner.id}`)
+                  img.circle(src=`${story.owner.image}` style="width: 50px;")
                 p(style="margin-left: 12px;")= `${story.owner.firstName} ${story.owner.lastName}`
             .card.z-depth-3
               .card-content
@@ -27,9 +28,11 @@ block body
               ul.collection.z-depth-3
                 each comment in story.comments
                   li.collection-item.avatar(style="min-height: 0;")
-                    img.circle(src=`${comment.commentOwner.image}`)
+                    a(href=`/stories/${comment.commentOwner.id}`)
+                      img.circle(src=`${comment.commentOwner.image}`)
                     p
-                      strong= comment.commentOwner.firstName
+                      a(href=`/stories/${comment.commentOwner.id}`)
+                        strong= comment.commentOwner.firstName
                       = ` ${comment.comment}`
                     small= `${formatDate(comment.createdDate, 'MMMM DD, YYYY')}`
           .col.s12.m12.l4.pull-l8

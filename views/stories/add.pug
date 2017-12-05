@@ -7,24 +7,24 @@ block body
   .container
     h1 Tell your Story
     .row
-     form.col.s12(action="/stories" method="POST")
-      .input-field
-        input#title(name="title" type="text" maxlength="70" required)
-        label(for="title") Title
-
-      .input-field
-        select(name="status")
-          option(value="public" selected) Public
-          option(value="private") Private
-          option(value="unpublished") Unpublished
-        label Status
-
-      input.filled-in(name="allowComments" type="checkbox" id="isAllow" checked)
-      label(for="isAllow") Allow Comments ?
-      
-      row
+      form.col.s12(action="/stories" method="POST")
         .input-field
-          textarea(name="body" required)
+          input#title(name="title" type="text" data-length="70" required)
+          label(for="title") Title
 
-      p
-        input.btn(type="submit" value="Save")
+        .input-field
+          select(name="status")
+            option(value="public" selected) Public
+            option(value="private") Private
+            option(value="unpublished") Unpublished
+          label Status
+
+        input.filled-in(name="allowComments" type="checkbox" id="isAllow" checked)
+        label(for="isAllow") Allow Comments ?
+        
+        row
+          .input-field
+            textarea(name="body" required)
+
+        p
+          input.btn(type="submit" value="Save")

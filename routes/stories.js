@@ -34,6 +34,24 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) =>
   })
 )
 
+router.post('/comment/:id', (req, res) => {
+  Story.findOne({ _id: req.params.id }).then(story => {
+    story.comments.unshift({
+      comment: req.body.comment,
+      commentOwner: req.user.id
+    })
+    story.save().then(story => res.redirect(`/stories/show/${story.id}`))
+  })
+})
+
+router.get('/:id', (req, res) => {
+  Story.find({ status: 'public', owner: req.params.id })
+    .populate('owner')
+    .then(stories => {
+      res.render('stories/index', { stories: stories })
+    })
+})
+
 router.post('/', (req, res) => {
   const allowComments = req.body.allowComments ? true : false
 
@@ -48,16 +66,6 @@ router.post('/', (req, res) => {
   new Story(newStory)
     .save()
     .then(story => res.redirect(`/stories/show/${story.id}`))
-})
-
-router.post('/comment/:id', (req, res) => {
-  Story.findOne({ _id: req.params.id }).then(story => {
-    story.comments.unshift({
-      comment: req.body.comment,
-      commentOwner: req.user.id
-    })
-    story.save().then(story => res.redirect(`/stories/show/${story.id}`))
-  })
 })
 
 router.put('/:id', (req, res) => {
