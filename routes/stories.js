@@ -19,7 +19,16 @@ router.get('/show/:id', (req, res) => {
     .populate('owner')
     .populate('comments.commentOwner')
     .then(story => {
-      Story.find({ owner: story.owner.id }).then(stories => {
+      Story.find({ owner: story.owner.id, status: 'public' }).then(stories => {
+        if (!(story.status == 'public'))
+          if (req.user)
+            if (req.user.id !== story.owner.id) res.redirect('/dashboard')
+            else
+              res.render('stories/story', {
+                story: story,
+                ownerStories: stories
+              })
+          else res.redirect('/dashboard')
         res.render('stories/story', { story: story, ownerStories: stories })
       })
     })
@@ -34,7 +43,7 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) =>
   })
 )
 
-router.post('/comment/:id', (req, res) => {
+router.post('/comment/:id', ensureAuthenticated, (req, res) => {
   Story.findOne({ _id: req.params.id }).then(story => {
     story.comments.unshift({
       comment: req.body.comment,
@@ -52,7 +61,7 @@ router.get('/:id', (req, res) => {
     })
 })
 
-router.post('/', (req, res) => {
+router.post('/', ensureAuthenticated, (req, res) => {
   const allowComments = req.body.allowComments ? true : false
 
   const newStory = {
@@ -68,7 +77,7 @@ router.post('/', (req, res) => {
     .then(story => res.redirect(`/stories/show/${story.id}`))
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id', ensureAuthenticated, (req, res) => {
   Story.findOne({ _id: req.params.id }).then(story => {
     const allowComments = req.body.allowComments ? true : false
 
@@ -82,8 +91,10 @@ router.put('/:id', (req, res) => {
   })
 })
 
-router.delete('/:id', (req, res) => {
-  Story.remove({ _id: req.params.id }).then(() => res.redirect('/dashboard'))
+router.delete('/:id', ensureAuthenticated, (req, res) => {
+  Story.remove({ _id: req.params.id, owner: req.user.id }).then(() =>
+    res.redirect('/dashboard')
+  )
 })
 
 module.exports = router
