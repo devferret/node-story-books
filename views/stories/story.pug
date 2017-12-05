@@ -10,6 +10,10 @@ block body
         .row(style="padding-top: 30px;")
           .col.s12.m12.l8.push-l4.offset
             .card.z-depth-2.hoverable
+              .card-image
+                if user && (story.owner.id == user.id)
+                  a.btn-floating.btn-large.halfway-fab.waves-effect.waves-light.teal.lighten-2(href=`/stories/edit/${story.id}`)
+                    i.fa.fa-pencil
               .card-content
                 h6= formatDate(story.dateCreated, 'MMMM DD, YYYY')
                 h4= story.title

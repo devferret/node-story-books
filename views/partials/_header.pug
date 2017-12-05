@@ -6,7 +6,7 @@ if user
         | Add New Story
     li
       a(href=`/dashboard`)
-        i.fa.fa-user
+        i.fa.fa-cog
         | Dashboad
     li
       a(href="/auth/logout")
@@ -36,14 +36,20 @@ nav.pink.lighten-2
       a.button-collapse.show-on-large(href="#" data-activates="main-menu")
         i.fa.fa-bars
       ul.left.hide-on-med-and-down
-        li
-          a(href="/")
-            i.fa.fa-home
-            | Home
+        if !user
+          li
+            a(href="/")
+              i.fa.fa-home
+              | Home
         li
           a(href="/stories")
             i.fa.fa-book
             | Public Stories
+        if user
+          li
+            a(href=`/dashboard`)
+              i.fa.fa-cog
+              | Dashboad
       ul.right
         if user
           li.hide-on-med-and-down
@@ -74,10 +80,11 @@ nav.pink.lighten-2
               i.blue-text.text-darken-3.fa.fa-facebook.left
               | Login with Facebook
           .divider
-        li
-          a(href="/")
-            i.fa.fa-home
-            | Home
+        if !user
+          li
+            a(href="/")
+              i.fa.fa-home
+              | Home
         li
           a(href="/stories")
             i.fa.fa-book

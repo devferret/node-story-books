@@ -15,14 +15,14 @@ block body
                   a.btn-floating.btn-large.halfway-fab.left.waves-effect.waves-light(href=`/stories/${story.owner.id}`)
                     img(src=`${story.owner.image}`)
                   if user && (story.owner.id == user.id)
-                    a.btn-floating.halfway-fab.waves-effect.waves-light.amber.darken-3(href=`/stories/edit/${story.id}`)
+                    a.btn-floating.halfway-fab.waves-effect.waves-light.teal.lighten-2(href=`/stories/edit/${story.id}`)
                       i.fa.fa-pencil
                 .card-content.center-align
                   h5.story-title= story.title
                   br
                   p.story-body= truncate(stripTags(story.body), 140)
                 .card-action.center-align
-                  a.marginless(href=`/stories/show/${story.id}`) Read more
+                  a.marginless.teal-text.text-lighten-2(href=`/stories/show/${story.id}`) Read more
 
       else
         h2 No stories
