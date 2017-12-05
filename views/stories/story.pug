@@ -9,7 +9,7 @@ block body
       .col.xl10.offset-xl1
         .row(style="padding-top: 30px;")
           .col.s12.m12.l8.push-l4.offset
-            .card.z-depth-3
+            .card.z-depth-2.hoverable
               .card-content
                 h6= formatDate(story.dateCreated, 'MMMM DD, YYYY')
                 h4= story.title
@@ -17,15 +17,16 @@ block body
               .card-action.valign-wrapper
                 a(href=`/stories/${story.owner.id}`)
                   img.circle(src=`${story.owner.image}` style="width: 50px;")
-                p(style="margin-left: 12px;")= `${story.owner.firstName} ${story.owner.lastName}`
-            .card.z-depth-3
+                a(href=`/stories/${story.owner.id}`)
+                  strong.teal-text.text-lighten-2= `${story.owner.firstName} ${story.owner.lastName}`
+            .card.z-depth-2.hoverable
               .card-content
                 form(action=`/stories/comment/${story.id}` method="POST")
                   .input-field.marginless
                     textarea#comment.materialize-textarea(name="comment" type="text" cols="20" rows="1" placeholder="Write a comment...")
                   input.btn(type="submit" value="Comment") 
             if story.comments.length > 0
-              ul.collection.z-depth-3
+              ul.collection.z-depth-2.hoverable
                 each comment in story.comments
                   li.collection-item.avatar(style="min-height: 0;")
                     a(href=`/stories/${comment.commentOwner.id}`)
@@ -36,8 +37,8 @@ block body
                       = ` ${comment.comment}`
                     small= `${formatDate(comment.createdDate, 'MMMM DD, YYYY')}`
           .col.s12.m12.l4.pull-l8
-            .collection.with-header.z-depth-3
-              .collection-header.center-align
-                h5= `${story.owner.firstName} \'s stories`
+            .collection.with-header.z-depth-2.hoverable
+              a.collection-item.center-align(href=`/stories/${story.owner.id}`)
+                h5= `All ${story.owner.firstName} \'s stories`
               each oS in ownerStories
                 a.collection-item(href=`/stories/show/${oS.id }`)= oS.title
