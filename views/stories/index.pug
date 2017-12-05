@@ -14,8 +14,9 @@ block body
                 .card-image
                   a.btn-floating.btn-large.halfway-fab.left.waves-effect.waves-light
                       img(src=`${story.owner.image}`)
-                  a.btn-floating.halfway-fab.waves-effect.waves-light.amber.darken-3
-                    i.fa.fa-pencil
+                  if user && (story.owner.id == user.id)
+                    a.btn-floating.halfway-fab.waves-effect.waves-light.amber.darken-3
+                      i.fa.fa-pencil
                 .card-content.center-align
                   h5.story-title= story.title
                   br
