@@ -43,3 +43,11 @@ nav .fa {
 .story-body {
   height: 100px;
 }
+
+#delete-form {
+  display: inline;
+}
+
+table .btn {
+  margin: 2px;
+}

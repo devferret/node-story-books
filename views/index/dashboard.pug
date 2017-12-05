@@ -5,4 +5,33 @@ block title
 
 block body
   .container
-    h1 Your stories
+    .section
+      h4 All Your Stories
+      if stories.length > 0
+        table.centered
+          thead
+            tr
+              th Title
+              th Created Date
+              th Status
+              th
+          tbody
+            each story in stories
+              tr
+                td
+                  a(href=`/stories/show/${story.id}`)= story.title
+                td= formatDate(story.createdDate, 'MMMM DD, YYYY')
+                td= story.status
+                td
+                  a.btn.left-align.btn-floating.waves-effect.waves-light(href=`/stories/edit/${story.id}`)
+                    i.fa.fa-pencil
+                  form#delete-form(action=`/stories/${story.id}` method="POST")
+                    button.btn.btn-floating.red.waves-effect.waves-light(type="submit")
+                      i.fa.fa-remove
+      else
+        .center-align
+            h5(style="margin-top: 10%") you have no any stories.
+            a.btn.waves-effect.waves-light(href="/stories/add")
+              span
+                i.fa.fa-plus.left
+              span Try to make one ?
