@@ -15,6 +15,15 @@ router.get(
   (req, res) => res.redirect('/dashboard')
 )
 
+router.get('/facebook', passport.authenticate('facebook'))
+router.get(
+  '/facebook/callback',
+  passport.authenticate('facebook'),
+  (req, res) => {
+    res.redirect('/dashboard')
+  }
+)
+
 router.get('/user', (req, res) => {
   if (req.user) res.send(req.user)
   else res.send({})
