@@ -25,7 +25,8 @@ block body
                 td
                   a.btn.left-align.btn-floating.waves-effect.waves-light(href=`/stories/edit/${story.id}`)
                     i.fa.fa-pencil
-                  form#delete-form(action=`/stories/${story.id}` method="POST")
+                  form#delete-form(action=`/stories/${story.id}?_method=DELETE` method="POST")
+                    input(type="hidden" name="_method" value="DELETE")
                     button.btn.btn-floating.red.waves-effect.waves-light(type="submit")
                       i.fa.fa-remove
       else
