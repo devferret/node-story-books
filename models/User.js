@@ -2,7 +2,12 @@ const mongoose = require('mongoose')
 
 const UserSchema = new mongoose.Schema({
   socialID: {
-    type: String
+    type: String,
+    required: true
+  },
+  social: {
+    type: String,
+    required: true
   },
   email: {
     type: String,

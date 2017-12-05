@@ -87,6 +87,7 @@ const createOrFindUser = (profile, social, done) => {
 
   const newUser = {
     socialID: profile.id,
+    social: social,
     firstName: profile.name ? profile.name.givenName : profile.displayName,
     lastName: profile.name ? profile.name.familyName : '',
     email: profile.emails[0].value,
@@ -102,6 +103,7 @@ const createOrFindUser = (profile, social, done) => {
       user.lastName = newUser.lastName
       user.email = newUser.email
       user.image = newUser.image
+      user.social = newUser.social
 
       user.save().then(user => done(null, user))
     }
