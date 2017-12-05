@@ -1,13 +1,13 @@
 if user
   ul#dropdown.dropdown-content
-    li.show-on-med-and-down
+    li
       a(href=`/stories/add`)
         i.fa.fa-plus
         | Add New Story
     li
-      a(href=`/stories/${user.id}`)
+      a(href=`/dashboard`)
         i.fa.fa-user
-        | My Stories
+        | Dashboad
     li
       a(href="/auth/logout")
         i.fa.fa-sign-out
@@ -56,6 +56,10 @@ nav.pink.lighten-2
             | Public Stories
         if user
           .divider
+          li
+            a(href=`/stories/add`)
+              i.fa.fa-plus
+              | Add New Story
           li
             a(href="/dashboard")
               i.fa.fa-cog

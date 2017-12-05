@@ -17,6 +17,7 @@ router.get('/', (req, res) => {
 router.get('/show/:id', (req, res) => {
   Story.findOne({ _id: req.params.id })
     .populate('owner')
+    .populate('comments.commentOwner')
     .then(story => {
       Story.find({ owner: story.owner.id }).then(stories => {
         res.render('stories/story', { story: story, ownerStories: stories })
@@ -47,6 +48,16 @@ router.post('/', (req, res) => {
   new Story(newStory)
     .save()
     .then(story => res.redirect(`/stories/show/${story.id}`))
+})
+
+router.post('/comment/:id', (req, res) => {
+  Story.findOne({ _id: req.params.id }).then(story => {
+    story.comments.unshift({
+      comment: req.body.comment,
+      commentOwner: req.user.id
+    })
+    story.save().then(story => res.redirect(`/stories/show/${story.id}`))
+  })
 })
 
 router.put('/:id', (req, res) => {

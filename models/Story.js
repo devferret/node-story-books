@@ -20,11 +20,11 @@ const StorySchema = new Schema({
   },
   comments: [
     {
-      commentBody: {
+      comment: {
         type: String,
         required: true
       },
-      commentUser: {
+      commentOwner: {
         type: Schema.Types.ObjectId,
         ref: 'user'
       },
