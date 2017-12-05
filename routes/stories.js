@@ -27,8 +27,10 @@ router.get('/show/:id', (req, res) => {
 
 router.get('/add', ensureAuthenticated, (req, res) => res.render('stories/add'))
 
-router.get('/edit', ensureAuthenticated, (req, res) =>
-  res.render('stories/edit')
+router.get('/edit/:id', ensureAuthenticated, (req, res) =>
+  Story.findOne({ _id: req.params.id }).then(story => {
+    res.render('stories/edit', { story: story })
+  })
 )
 
 router.post('/', (req, res) => {
@@ -45,6 +47,20 @@ router.post('/', (req, res) => {
   new Story(newStory)
     .save()
     .then(story => res.redirect(`/stories/show/${story.id}`))
+})
+
+router.put('/:id', (req, res) => {
+  Story.findOne({ _id: req.params.id }).then(story => {
+    const allowComments = req.body.allowComments ? true : false
+
+    // Updating
+    story.title = req.body.title
+    story.body = req.body.body
+    story.status = req.body.status
+    story.allowComments = allowComments
+
+    story.save().then(story => res.redirect('/dashboard'))
+  })
 })
 
 module.exports = router

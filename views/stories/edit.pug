@@ -5,4 +5,27 @@ block title
 
 block body
   .container
-    h1 Edit
+    h1 Change your Story
+    .row
+      form.col.s12(action=`/stories/${story.id}?_method=PUT` method="POST")
+        .input(type="hidden" name="_method" value="PUT")
+        .input-field
+          input#title(name="title" type="text" maxlength="70" required value=`${story.title}`)
+          label(for="title") Title
+
+        .input-field
+          select(name="status")
+            option(value="public" selected=`${isSelect('public', story.status)}`) Public
+            option(value="private" selected=`${isSelect('private', story.status)}`) Private
+            option(value="unpublished" selected=`${isSelect('unpublished', story.status)}`) Unpublished
+          label Status
+
+        input.filled-in(name="allowComments" type="checkbox" id="isAllow" checked=`${story.allowComments}`)
+        label(for="isAllow") Allow Comments ?
+        
+        row
+          .input-field
+            textarea(name="body" required)= story.body
+
+        p
+          input.btn(type="submit" value="Save")

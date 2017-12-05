@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const path = require('path')
 const bodyParser = require('body-parser')
+const methodOverried = require('method-override')
 
 // Load models
 require('./models/User')
@@ -22,7 +23,12 @@ const stories = require('./routes/stories')
 const keys = require('./config/keys')
 
 // Load Filter
-const { truncate, stripTags, formatDate } = require('./helper/filters')
+const {
+  truncate,
+  stripTags,
+  formatDate,
+  isSelect
+} = require('./helper/filters')
 
 const app = express()
 
@@ -37,6 +43,8 @@ mongoose
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+
+app.use(methodOverried('_method'))
 
 app.set('views', './views')
 app.set('view engine', 'pug')
@@ -60,6 +68,7 @@ app.use((req, res, next) => {
   res.locals.truncate = truncate
   res.locals.stripTags = stripTags
   res.locals.formatDate = formatDate
+  res.locals.isSelect = isSelect
   next()
 })
 
